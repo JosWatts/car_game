@@ -1,0 +1,7 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://1skc1attnmr6"]
+
+[ext_resource type="FontFile" uid="uid://b34vr3aa2hwkg" path="res://kenney_space-shooter-redux/Bonus/kenvector_future.ttf" id="1_ar0iq"]
+
+[resource]
+default_font = ExtResource("1_ar0iq")
+default_font_size = 25

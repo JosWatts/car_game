@@ -1,0 +1,43 @@
+[gd_scene load_steps=7 format=3 uid="uid://cx1ivwn4iqj86"]
+
+[ext_resource type="Script" path="res://levels/menu.gd" id="1_mcjrn"]
+[ext_resource type="PackedScene" uid="uid://dp4vmdq3d2kdk" path="res://prefabs/player.tscn" id="1_yt7lb"]
+[ext_resource type="PackedScene" uid="uid://dfh0wc53icg20" path="res://prefabs/portal.tscn" id="3_wifvr"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_2wjsh"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kga6h"]
+texture = SubResource("CompressedTexture2D_2wjsh")
+texture_region_size = Vector2i(128, 128)
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-64, -64, 64, -64, 64, 64, -64, 64)
+
+[sub_resource type="TileSet" id="TileSet_4hw53"]
+tile_size = Vector2i(128, 128)
+physics_layer_0/collision_layer = 1
+sources/1 = SubResource("TileSetAtlasSource_kga6h")
+
+[node name="level2" type="Node2D"]
+script = ExtResource("1_mcjrn")
+
+[node name="player" parent="." instance=ExtResource("1_yt7lb")]
+position = Vector2(573, 318)
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_4hw53")
+format = 2
+layer_0/tile_data = PackedInt32Array(262144, 1, 0, 262145, 1, 0, 262146, 1, 0, 262147, 1, 0, 262148, 1, 0, 262149, 1, 0, 262150, 1, 0, 262151, 1, 0, 262152, 1, 0, 327688, 1, 0, 393224, 1, 0, 458760, 1, 0, 524296, 1, 0, 589832, 1, 0, 655368, 1, 0, 720904, 1, 0, 786440, 1, 0, 851976, 1, 0, 917512, 1, 0, 983048, 1, 0, 1048584, 1, 0, 1114120, 1, 0, 1179656, 1, 0, 1245192, 1, 0, 1245193, 1, 0, 1245194, 1, 0, 1245195, 1, 0, 1245196, 1, 0, 1245197, 1, 0, 1245198, 1, 0, 1245199, 1, 0, 1245200, 1, 0, 1245201, 1, 0, 1245202, 1, 0, 1179666, 1, 0, 1114130, 1, 0, 1048594, 1, 0, 1048595, 1, 0, 983059, 1, 0, 917523, 1, 0, 851987, 1, 0, 851988, 1, 0, 786452, 1, 0, 720916, 1, 0, 655380, 1, 0, 589844, 1, 0, 524308, 1, 0, 458772, 1, 0, 393236, 1, 0, 327700, 1, 0, 262164, 1, 0, 196628, 1, 0, 262158, 1, 0, 262159, 1, 0, 262160, 1, 0, 262161, 1, 0, 262162, 1, 0, 262163, 1, 0, 131093, 1, 0, 65557, 1, 0, 65558, 1, 0, 22, 1, 0, 23, 1, 0, -65513, 1, 0, -65512, 1, 0, 131092, 1, 0, 196627, 1, 0, -131052, 1, 0, -131053, 1, 0, -131054, 1, 0, -131057, 1, 0, -131058, 1, 0, -131059, 1, 0, -131060, 1, 0, -131061, 1, 0, -131062, 1, 0, -196599, 1, 0, -196600, 1, 0, -196601, 1, 0, -196602, 1, 0, -196603, 1, 0, -196604, 1, 0, -196605, 1, 0, -196606, 1, 0, -131070, 1, 0, -131073, 1, 0, -65537, 1, 0, -1, 1, 0, 65535, 1, 0, 131071, 1, 0, 196607, 1, 0, 262143, 1, 0, 327679, 1, 0, -196609, 1, 0, -262145, 1, 0, -327680, 1, 0, -327679, 1, 0, -327678, 1, 0, -65534, 1, 0, 2, 1, 0, 65538, 1, 0, 131074, 1, 0, 131075, 1, 0, 196610, 1, 0, 196611, 1, 0)
+
+[node name="Portal" parent="." instance=ExtResource("3_wifvr")]
+position = Vector2(125, 374)
+
+[node name="Button" type="Button" parent="."]
+offset_left = 493.0
+offset_top = 181.0
+offset_right = 558.0
+offset_bottom = 212.0
+text = "Restart"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

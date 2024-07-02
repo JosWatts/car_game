@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://dd2w1a15pc8ll"]
+
+[ext_resource type="Script" path="res://scripts/enemy_2.gd" id="1_rcjvo"]
+[ext_resource type="Texture2D" uid="uid://d268fl0hpht40" path="res://kenney_space-shooter-redux/PNG/Enemies/enemyBlue1.png" id="2_ul2ba"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ncpnn"]
+size = Vector2(90.0003, 82.4997)
+
+[node name="enemy_2" type="Area2D"]
+rotation = 1.5708
+scale = Vector2(0.4, 0.4)
+script = ExtResource("1_rcjvo")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1.59076e-06, -1.24999)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_ncpnn")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_ul2ba")
+
+[node name="laser_spawn_timer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="timeout" from="laser_spawn_timer" to="." method="_on_laser_spawn_timer_timeout"]
