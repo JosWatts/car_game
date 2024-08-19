@@ -1,0 +1,50 @@
+[gd_scene load_steps=8 format=3 uid="uid://bn6p5bqc67dj8"]
+
+[ext_resource type="Texture2D" uid="uid://dk4qwk1gg0kox" path="res://Trap and Weapon/Trap and Weapon/32.png" id="1_52vug"]
+[ext_resource type="Script" path="res://Spiketrap.gd" id="1_eaf34"]
+[ext_resource type="Texture2D" uid="uid://b0cmk2aef82t0" path="res://kenney_1-bit-platformer-pack/PNG (Transparent)/fire_02.png" id="3_q0k2v"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rtgkf"]
+size = Vector2(68, 42)
+
+[sub_resource type="Gradient" id="Gradient_hyrfv"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0.34902)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_8xjeq"]
+gradient = SubResource("Gradient_hyrfv")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_6bbsl"]
+particle_flag_disable_z = true
+emission_shape_offset = Vector3(0, -25, 0)
+direction = Vector3(100, -10000, 0)
+spread = 21.522
+flatness = 0.217
+initial_velocity_min = 181.76
+initial_velocity_max = 181.76
+gravity = Vector3(61.4, 22.275, 0)
+scale_min = 0.1
+scale_max = 0.2
+color = Color(1, 0.539457, 0.322049, 1)
+color_ramp = SubResource("GradientTexture1D_8xjeq")
+
+[node name="spiketrap" type="Area2D"]
+rotation = 1.5708
+scale = Vector2(0.79, 0.79)
+script = ExtResource("1_eaf34")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_52vug")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, 11)
+shape = SubResource("RectangleShape2D_rtgkf")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 18
+process_material = SubResource("ParticleProcessMaterial_6bbsl")
+texture = ExtResource("3_q0k2v")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

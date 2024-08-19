@@ -1,0 +1,48 @@
+[gd_scene load_steps=5 format=3 uid="uid://bcd67bmuwke7b"]
+
+[ext_resource type="Script" path="res://scripts/game.gd" id="1_g8gk8"]
+[ext_resource type="PackedScene" uid="uid://kh1hc3tph22f" path="res://prefabs/player.tscn" id="1_hftel"]
+[ext_resource type="Theme" uid="uid://1skc1attnmr6" path="res://new_theme.tres" id="3_n4osn"]
+[ext_resource type="AudioStream" uid="uid://mdo0ci6ik67p" path="res://kenney_space-shooter-redux/Bonus/music-for-arcade-style-game-146875.mp3" id="5_nnk2y"]
+
+[node name="game" type="Node2D"]
+script = ExtResource("1_g8gk8")
+
+[node name="player" parent="." instance=ExtResource("1_hftel")]
+position = Vector2(128, 320)
+
+[node name="enemy_timer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[node name="game_ui" type="Control" parent="."]
+custom_minimum_size = Vector2(1152, 100)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1152.0
+offset_bottom = 128.0
+theme = ExtResource("3_n4osn")
+
+[node name="score_label" type="Label" parent="game_ui"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -576.0
+offset_right = 576.0
+offset_bottom = 64.0
+text = "SCORE: 0000"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="restart" type="Timer" parent="."]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_nnk2y")
+volume_db = 7.924
+autoplay = true
+
+[connection signal="player_killed" from="player" to="." method="_on_player_player_killed"]
+[connection signal="timeout" from="enemy_timer" to="." method="_on_enemy_timer_timeout"]
+[connection signal="timeout" from="restart" to="." method="_on_restart_timeout"]
+[connection signal="finished" from="AudioStreamPlayer2D" to="." method="_on_audio_stream_player_2d_finished"]

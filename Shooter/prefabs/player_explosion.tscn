@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://7bjb7fo7x0mq"]
+
+[ext_resource type="Texture2D" uid="uid://duex0jxj4nngu" path="res://kenney_space-shooter-redux/PNG/Effects/star1.png" id="1_l3375"]
+[ext_resource type="Script" path="res://scripts/explosionscript.gd" id="2_gewra"]
+[ext_resource type="AudioStream" uid="uid://c0wfc168yxok1" path="res://kenney_space-shooter-redux/Bonus/mixkit-8-bit-bomb-explosion-2811.wav" id="3_5ipqn"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_gw3yn"]
+particle_flag_disable_z = true
+spread = 0.0
+initial_velocity_min = 1.75
+initial_velocity_max = 1.75
+angular_velocity_min = 62.63
+angular_velocity_max = 178.23
+radial_velocity_max = 157.3
+gravity = Vector3(0, 0, 0)
+linear_accel_min = 3.33
+linear_accel_max = 3.33
+scale_min = 0.0
+scale_max = 0.85
+
+[node name="player_explosion" type="Node2D"]
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+rotation = 3.14159
+emitting = false
+amount = 50
+process_material = SubResource("ParticleProcessMaterial_gw3yn")
+texture = ExtResource("1_l3375")
+lifetime = 77.65
+one_shot = true
+explosiveness = 1.0
+script = ExtResource("2_gewra")
+
+[node name="death_sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_5ipqn")
+volume_db = 2.811
+autoplay = true

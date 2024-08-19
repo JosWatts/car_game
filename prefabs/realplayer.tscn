@@ -1,0 +1,167 @@
+[gd_scene load_steps=15 format=3 uid="uid://bcjpo3c2qk3p"]
+
+[ext_resource type="Script" path="res://scripts/realplayer.gd" id="1_pa4qm"]
+[ext_resource type="Texture2D" uid="uid://bx8wpqjgyjmvg" path="res://kenney_1-bit-platformer-pack/image (1).png" id="2_o8afc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vt3hw"]
+atlas = ExtResource("2_o8afc")
+region = Rect2(3264, 1632, 544, 544)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mfajo"]
+atlas = ExtResource("2_o8afc")
+region = Rect2(2720, 1088, 544, 544)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_speu8"]
+atlas = ExtResource("2_o8afc")
+region = Rect2(2720, 544, 544, 544)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a048g"]
+atlas = ExtResource("2_o8afc")
+region = Rect2(0, 104, 544, 518)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4j3yl"]
+atlas = ExtResource("2_o8afc")
+region = Rect2(0, 1632, 544, 544)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j7h76"]
+atlas = ExtResource("2_o8afc")
+region = Rect2(1088, 544, 544, 544)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2m51y"]
+atlas = ExtResource("2_o8afc")
+region = Rect2(1632, 544, 544, 544)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gao7k"]
+animations = [{
+"frames": [{
+"duration": 10.0,
+"texture": SubResource("AtlasTexture_vt3hw")
+}],
+"loop": false,
+"name": &"die",
+"speed": 0.5
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mfajo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_speu8")
+}],
+"loop": true,
+"name": &"fall",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a048g")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4j3yl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mfajo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_speu8")
+}],
+"loop": true,
+"name": &"jump",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j7h76")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2m51y")
+}],
+"loop": true,
+"name": &"run",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bv6m7"]
+radius = 133.0
+height = 320.0
+
+[sub_resource type="Gradient" id="Gradient_ds5yt"]
+offsets = PackedFloat32Array(0, 0.443439)
+colors = PackedColorArray(0, 0.897687, 0, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_3pvxq"]
+gradient = SubResource("Gradient_ds5yt")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_26uf1"]
+particle_flag_disable_z = true
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 1.0
+emission_ring_radius = 1.0
+emission_ring_inner_radius = 0.0
+direction = Vector3(0, -0.075, 0)
+spread = 81.892
+initial_velocity_min = 1000.0
+initial_velocity_max = 1000.0
+angular_velocity_min = 720.0
+angular_velocity_max = 720.0
+radial_velocity_min = 173.91
+radial_velocity_max = 391.3
+gravity = Vector3(25.395, 19.215, 33.38)
+linear_accel_min = 85.51
+linear_accel_max = 85.51
+radial_accel_min = -18.84
+scale_min = 1.5
+scale_max = 1.8
+color = Color(0, 0.882353, 0.0666667, 1)
+color_ramp = SubResource("GradientTexture1D_3pvxq")
+
+[node name="realplayer" type="CharacterBody2D"]
+scale = Vector2(0.075, 0.075)
+script = ExtResource("1_pa4qm")
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(11, -34)
+sprite_frames = SubResource("SpriteFrames_gao7k")
+animation = &"idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_bv6m7")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(1.63, 1.63)
+position_smoothing_enabled = true
+rotation_smoothing_enabled = true
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+drag_horizontal_offset = 0.2
+drag_vertical_offset = -0.5
+drag_left_margin = 0.28
+drag_top_margin = 0.26
+drag_right_margin = 0.28
+drag_bottom_margin = 0.65
+
+[node name="jumpclock" type="Timer" parent="."]
+wait_time = 0.05
+
+[node name="jumpeffect" type="GPUParticles2D" parent="."]
+position = Vector2(-13.3335, 0)
+emitting = false
+amount = 173
+process_material = SubResource("ParticleProcessMaterial_26uf1")
+lifetime = 3.0
+one_shot = true
+explosiveness = 1.0
+randomness = 0.23
+
+[node name="deathclock" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="jumpclock" to="." method="_on_jumpclock_timeout"]
+[connection signal="timeout" from="deathclock" to="." method="_on_deathclock_timeout"]
